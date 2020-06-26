@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+      user: ユーザー
+    attributes:
+      task:
+        title: タスク名
+        content: タスク詳細
+      user:
+        title: タスク
+        name: タスク詳細
+        email: メールアドレス
+        current_password: 現在のパスワード
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: ログインを記憶
