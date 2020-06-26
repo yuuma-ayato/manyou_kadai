@@ -33,17 +33,17 @@
 ```
 heroku login
 ```
-<br>
+
 2.Herokuに新しいアプリケーションを作成
 ```
 heroku create アプリ名
 ```
-<br>
+
 3.プリコンパイル
 ```
 rails assets:precompile RAILS_ENV=production
 ```
-<br>
+
 4.Herokuにデプロイ
 ```
 git add -A
