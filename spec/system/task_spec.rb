@@ -4,9 +4,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される
     # 各テストで使用するタスクを1件作成する
     # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
-    FactoryBot.create(:task, title: 'task')
-    FactoryBot.create(:second_task, title: 'new_task', limit: DateTime.tomorrow, priority: 2)
-  end
+     FactoryBot.create(:task, title: 'task')
+     FactoryBot.create(:second_task, title: 'new_task')
+   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
       # テストコードを it '~' do end ブロックの中に記載する
@@ -70,6 +70,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'タスク名', with: '6/25'
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'タスク詳細', with: 'RSpecの学習'
+        fill_in '終了期限', with: DateTime.now
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_button '登録する'
