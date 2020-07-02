@@ -1,0 +1,34 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  text-align: center;
+}
+.header{
+    font-size:20px;
+    font-weight:bold;
+    text-align:center;
+    background-color:#00aced ;
+    color: #fff;
+    padding:1% 2%;
+}
+
+.article{
+    background-color:#c7d1f6;
+    color:#000000;
+    padding:5% 5%;
+    box-sizing: border-box;
+    border: solid 1px #fff;
+}
+footer {
+  width: 100%;
+  background-color:#00aced;
+  padding: 20px 0 10px 0;
+  color: #fff;
+  margin: auto;
+  padding-bottom: 10px;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+}

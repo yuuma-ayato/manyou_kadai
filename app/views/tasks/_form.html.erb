@@ -21,6 +21,14 @@
     <%= form.label :limit %>
     <%= form.datetime_field :limit %>
   </div>
+  <div class="task_title">
+    <%= form.label :status %>
+    <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択して下さい" %>
+  </div>
+  <div class="task_title">
+    <%= form.label :priority %>
+    <%= form.select :priority, [["高", "高"], ["中", "中"], ["低", "低"]], include_blank: "選択して下さい" %>
+  </div>
   <%= form.submit %>
 <% end %>
 <%= link_to "一覧へ戻る", tasks_path %>

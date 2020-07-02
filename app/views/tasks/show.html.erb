@@ -1,4 +1,7 @@
 <h1>タスク詳細画面</h1>
 <p>タイトル: <%= @task.title %></p>
 <p>内容: <%= @task.content %></p>
+<p>終了期限:<%= @task.limit %></p>
+<p>進捗:<%= @task.status %></p>
+<p>優先順位:<%= @task.priority %></p>
 <%= link_to "一覧へ戻る", tasks_path %>

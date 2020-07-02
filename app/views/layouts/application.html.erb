@@ -4,12 +4,17 @@
     <title>ManyouKadai</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header class="header">タスク管理システム</header>
     <%= yield %>
+    <footer>
+  <p>運営会社yuuma株式会社</p>
+  <p>© 2020-2021 Copyright yuuma Corp.</p>
+</footer>
   </body>
 </html>

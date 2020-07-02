@@ -1,11 +1,24 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 10
 
   def index
     if params[:sort_expired]
-      @tasks = Task.all.order(limit: "DESC")
+      @tasks = Task.order(limit: :ASC).page(params[:page]).per(PER)
+    elsif params[:sort_priority]
+      @tasks = Task.order(priority: :ASC).page(params[:page]).per(PER)
     else
-      @tasks = Task.all.order(created_at: "DESC")
+      @tasks = Task.order(created_at: :DESC).page(params[:page]).per(PER)
+    end
+
+    if params[:search].present?
+      if params[:title].present? && params[:status].present?#渡されたパラメータがタイトルとステータス両方だった場合
+        @tasks = @tasks.title_search(params[:title]).status_search(params[:status]).page(params[:page]).per(PER)
+      elsif params[:title].present?#渡されたパラメータがタイトルのみだった場合
+        @tasks = @tasks.title_search(params[:title]).page(params[:page]).per(PER)
+      elsif params[:status].present?#渡されたパラメータがステータスのみだった場合
+        @tasks = @tasks.status_search(params[:status]).page(params[:page]).per(PER)
+      end
     end
   end
 
@@ -53,7 +66,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :limit)
+    params.require(:task).permit(:title, :content, :limit, :status, :priority)
   end
 
   def set_task
