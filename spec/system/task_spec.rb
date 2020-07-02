@@ -5,7 +5,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     # 各テストで使用するタスクを1件作成する
     # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
     FactoryBot.create(:task, title: 'task')
-    FactoryBot.create(:second_task, title: 'new_task', limit: DateTime.tomorrow)
+    FactoryBot.create(:second_task, title: 'new_task', limit: DateTime.tomorrow, priority: 2)
   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
@@ -29,9 +29,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content 'new_task'
         expect(task_list[1]).to have_content 'task'
       end
-      it 'タスクが終了期限順に並んでいる' do
+      it 'タスクを終了期限順に並び変える' do
         visit tasks_path
         click_button '期限順に並べる'
+        task_list = all('.task_row')
+        expect(task_list[0]).to have_content 'task'
+        expect(task_list[1]).to have_content 'new_task'
+      end
+      it 'タスクを優先順に並び変える' do
+        visit tasks_path
+        click_button '優先順に並べる'
         task_list = all('.task_row')
         expect(task_list[0]).to have_content 'task'
         expect(task_list[1]).to have_content 'new_task'
