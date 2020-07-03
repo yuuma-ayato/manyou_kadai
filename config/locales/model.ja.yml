@@ -7,9 +7,11 @@ ja:
       task:
         title: タスク名
         content: タスク詳細
+        limit: 終了期限
+        status: 進捗
+        priority: 優先順位
       user:
-        title: タスク
-        name: タスク詳細
+        name: 名前
         email: メールアドレス
         current_password: 現在のパスワード
         password: パスワード

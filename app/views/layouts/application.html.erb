@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ManyouKadai</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>ManyouKadai</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <header class="header">タスク管理システム</header>
+  <% if logged_in? %>
+  <%= link_to "Profile", user_path(current_user.id) %>
+  <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+  <% else %>
+  <%= link_to "SignUp", new_user_path %>
+  <%= link_to "Login", new_session_path %>
+  <% end %>
+  <%= yield %>
+  <footer>
+    <p>運営会社yuuma株式会社</p>
+    <p>© 2020-2021 Copyright yuuma Corp.</p>
+  </footer>
+</body>
 </html>

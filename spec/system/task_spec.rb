@@ -1,12 +1,17 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
+    FactoryBot.create(:user1)
+    visit new_session_path
+    fill_in 'Email', with: 'sample1@example.com'
+    fill_in 'Password', with: '00000000'
+    click_button 'Log in'
     # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される
     # 各テストで使用するタスクを1件作成する
     # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
-    FactoryBot.create(:task, title: 'task')
-    FactoryBot.create(:second_task, title: 'new_task')
-  end
+     FactoryBot.create(:task, title: 'task')
+     FactoryBot.create(:second_task, title: 'new_task')
+   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
       # テストコードを it '~' do end ブロックの中に記載する
@@ -29,6 +34,32 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content 'new_task'
         expect(task_list[1]).to have_content 'task'
       end
+      it 'タスクを終了期限順に並び変える' do
+        visit tasks_path
+        click_button '期限順に並べる'
+        task_list = all('.task_row')
+        expect(task_list[0]).to have_content 'task'
+        expect(task_list[1]).to have_content 'new_task'
+      end
+      it 'タスクを優先順に並び変える' do
+        visit tasks_path
+        click_button '優先順に並べる'
+        task_list = all('.task_row')
+        expect(task_list[0]).to have_content 'task'
+        expect(task_list[1]).to have_content 'new_task'
+      end
+    end
+    context '検索をした場合' do
+      before do
+        FactoryBot.create(:task, title: "task")
+        FactoryBot.create(:second_task, title: "sample")
+      end
+      it "タイトルで検索できる" do
+        visit tasks_path
+        fill_in 'title', with: 'sample'
+        click_button '検索'
+        expect(page).to have_content 'sample'
+      end
     end
   end
 
@@ -44,6 +75,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'タスク名', with: '6/25'
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'タスク詳細', with: 'RSpecの学習'
+        fill_in '終了期限', with: DateTime.now
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_button '登録する'
