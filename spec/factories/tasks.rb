@@ -8,6 +8,7 @@ FactoryBot.define do
     limit { DateTime.new }
     status { '未着手' }
     priority { 2 }
+    user { User.first }
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -17,5 +18,6 @@ FactoryBot.define do
     limit { DateTime.tomorrow }
     status { '未着手' }
     priority { 2 }
+    user { User.first }
   end
 end

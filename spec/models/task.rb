@@ -1,5 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :model do
+  before do
+    FactoryBot.create(:user1)
+    FactoryBot.create(:task, title: 'task')
+  end
   context 'バリデーションテスト' do
     it 'titleが空ならバリデーションが通らない' do
       task = Task.new(title: '', content: '失敗テスト')
@@ -24,7 +28,7 @@ RSpec.describe 'タスク管理機能', type: :model do
       expect(Task.title_search('task').count).to eq 1
     end
     it "scopeメソッドでステータス検索ができる" do
-      expect(Task.status_search('完了').count).to eq 1
+      expect(Task.status_search("完了").count).to eq 1
     end
     it "scopeメソッドでタイトルとステータスの両方が検索できる" do
       expect(Task.title_search('task') && Task.status_search('未着手').count).to eq 1
