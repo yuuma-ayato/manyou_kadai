@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_admin, only: [:update, :show, :edit, :destroy]
+  # before_action :set_admin, only: [:update, :show, :edit, :destroy] %i記法で記入したため不要
+  before_action :set_admin, only: %i[update show edit destroy]
   before_action :check_admin
   PER = 8
 
@@ -29,9 +30,9 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_user_path(@user), notice: "編集しました！"
+      redirect_to admin_users_path(@user.id), notice: "編集しました！"
     else
-      render :show
+      render :edit
     end
   end
 

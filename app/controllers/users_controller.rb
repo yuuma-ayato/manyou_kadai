@@ -19,14 +19,12 @@ class UsersController < ApplicationController
     end
 
     def update
-      if @user.update(user_params)
-        redirect_to user_path, notice: "編集しました！"
-      else
-        render :show
-      end
     end
 
     def show
+      unless @user == current_user
+        redirect_to tasks_path, notice: '他の人のページへアクセス出来ません'
+      end
     end
 
 
