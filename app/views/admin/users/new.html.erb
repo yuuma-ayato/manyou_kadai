@@ -20,7 +20,9 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
-  <%= f.submit "アカウント作成" %>
+  <%= f.label :admin, "管理者権限" %>
+  <%= f.check_box :admin %>
+  <%= f.submit "Create my account" %>
 <% end %>
 
-<%= link_to "ログイン画面にもどる", new_session_path %>
+<%= link_to "管理者画面にもどる", admin_users_path %>

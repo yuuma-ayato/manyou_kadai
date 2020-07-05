@@ -1,0 +1,31 @@
+<p><%= notice %></p>
+
+<article class="col-sm-12 col-md-offset-3 col-md-6">
+  <p>
+    ID:<%= @user.id %>
+    名前:<%=@user.name %>
+  </p>
+  <p>Email:<%=@user.email %></p>
+  <p>管理者権限:<%= "有" if @user.admin? %></p>
+  <p>作成日<%=@user.created_at.strftime("%Y-%m-%d%H:%M") %></p>
+  <p>更新日:<%=@user.updated_at.strftime("%Y-%m-%d%H:%M") %></p>
+  <br>
+  <p>タスク一覧:</p>
+  <table class="table table-condensed ">
+    <tr>
+      <th>タスク名</th>
+      <th>詳細</th>
+    </tr>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td class="task_row">
+        <%= task.title %>
+      </td>
+      <td><%= task.content %></td>
+      <% end %>
+    </table>
+    <p><%= paginate @tasks %></p>
+    <%= link_to '編集', edit_admin_user_path(@user)%>
+    <%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+    <p><%= link_to "管理者画面にもどる", admin_users_path %></p>
+  </article>
