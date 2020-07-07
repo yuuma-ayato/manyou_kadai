@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, ]
   before_action :check_login
   PER = 6
 
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     end
 
      @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
-     
+
   end
 
   def new

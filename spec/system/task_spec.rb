@@ -1,10 +1,11 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    FactoryBot.create(:user)
+    @user = FactoryBot.create(:user)
+    @label = FactoryBot.create(:label)
     visit new_session_path
-    fill_in 'Email', with: 'sample@example.com'
-    fill_in 'Password', with: '00000000'
+    fill_in 'session[email]', with: @user.email
+    fill_in 'session[password]', with: @user.password
     click_button 'Log in'
     # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される
     # 各テストで使用するタスクを1件作成する
@@ -76,7 +77,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'タスク詳細', with: 'RSpecの学習'
         fill_in '終了期限', with: DateTime.now
-        # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
+        select '着手中', from: 'task_status'
+        select '中', from: 'task_priority'
+        check @label.name
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_button '登録する'
         # clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
@@ -84,6 +87,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 5.タスク詳細ページに、テストコードで作成したはずのデータ（記述）がhave_contentされているか（含まれているか）を確認（期待）するコードを書く
         expect(page).to have_content '6/25'
         expect(page).to have_content 'RSpecの学習'
+        expect(page).to have_content DateTime.now.strftime("%Y-%m-%d%H:%M")
+        expect(page).to have_content '着手中'
+        expect(page).to have_content @label.name
       end
     end
   end

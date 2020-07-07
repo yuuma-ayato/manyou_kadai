@@ -5,11 +5,16 @@
   <%= form.hidden_field :limit %>
   <%= form.hidden_field :status %>
   <%= form.hidden_field :priority %>
+  <%= form.hidden_field :name %>
   <p>タイトル:<%= @task.title %></p>
   <p>本文:<%= @task.content %></p>
   <p>終了期限:<%= @task.limit.strftime("%Y-%m-%d%H:%M") %></p>
   <p>ステータス:<%= @task.status %></p>
   <p>優先順位:<%= @task.priority %></p>
+  <p><% @task.labels.each do |label| %>
+    <%= label.name %>
+    <% end %>
+  </p>
   <%= form.submit  "登録する" %>
   <%= form.submit "戻る", name: 'back' %>
 <% end %>
