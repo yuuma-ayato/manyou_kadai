@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :check_logout, only: [:new]
 
   def new
   end
@@ -9,8 +10,8 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to user_path(user.id), notice: "ログインしました"
     else
-      flash.now[:danger] = 'ログインに失敗しました'
-      render :new
+      flash[:notice] = 'ログインに失敗しました'
+      redirect_to new_session_path
     end
   end
 
@@ -19,4 +20,13 @@ class SessionsController < ApplicationController
     flash[:notice] = 'ログアウトしました'
     redirect_to new_session_path
   end
+
+  private
+
+def check_logout
+  if logged_in?
+    redirect_to tasks_path, notice:"ログイン中です"
+  end
+end
+
 end

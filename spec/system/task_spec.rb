@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    FactoryBot.create(:user1)
+    FactoryBot.create(:user)
     visit new_session_path
-    fill_in 'Email', with: 'sample1@example.com'
+    fill_in 'Email', with: 'sample@example.com'
     fill_in 'Password', with: '00000000'
     click_button 'Log in'
     # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される

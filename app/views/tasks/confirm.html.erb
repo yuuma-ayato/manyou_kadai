@@ -7,7 +7,7 @@
   <%= form.hidden_field :priority %>
   <p>タイトル:<%= @task.title %></p>
   <p>本文:<%= @task.content %></p>
-  <p>終了期限:<%= @task.limit %></p>
+  <p>終了期限:<%= @task.limit.strftime("%Y-%m-%d%H:%M") %></p>
   <p>ステータス:<%= @task.status %></p>
   <p>優先順位:<%= @task.priority %></p>
   <%= form.submit  "登録する" %>
