@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:update, :show, :edit]
+  before_action :check_logout, only: [:new]
 
     def new
       @user = User.new
@@ -37,6 +38,12 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def check_logout
+      if logged_in?
+        redirect_to tasks_path, notice:"ログイン中です"
+      end
     end
 
   end
