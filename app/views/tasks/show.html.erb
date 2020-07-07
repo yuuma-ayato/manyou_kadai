@@ -4,4 +4,7 @@
 <p>終了期限:<%= @task.limit.strftime("%Y-%m-%d%H:%M") %></p>
 <p>進捗:<%= @task.status %></p>
 <p>優先順位:<%= @task.priority %></p>
+<% @task.labels.each do |label| %>
+<%= label.name %>
+<% end %>
 <%= link_to "一覧へ戻る", tasks_path %>

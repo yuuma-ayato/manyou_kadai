@@ -21,6 +21,9 @@ class TasksController < ApplicationController
         @tasks = @tasks.status_search(params[:status]).page(params[:page]).per(PER)
       end
     end
+
+     @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
+     
   end
 
   def new
@@ -69,7 +72,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :limit, :status, :priority)
+    params.require(:task).permit(:title, :content, :limit, :status, :priority, { label_ids: [] })
   end
 
   def check_login
