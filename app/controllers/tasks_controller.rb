@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, ]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :check_login
   PER = 6
 
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to new_task_path, notice: "タスクを作成しました！"
+        redirect_to tasks_path, notice: "タスクを作成しました！"
       else
         render :new
       end
